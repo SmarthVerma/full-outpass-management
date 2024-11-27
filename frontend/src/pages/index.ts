@@ -5,3 +5,4 @@ export * from "./NotFound";
 export * from './Home'
 export * from './FacultyDashboard'
 export * from './NotVerifiedAccount'
+export * from './AuthorizeYourAccount'

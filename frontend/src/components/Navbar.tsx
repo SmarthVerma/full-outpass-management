@@ -5,7 +5,6 @@ import { NavigateLink } from "./Links";
 
 export const Navbar = () => {
   const user = useAppSelector(state => state.authUser.user);
-  const isStudent = user?.isStudent;
 
   const location = useLocation();
   const isLoginPath = location.pathname === '/login';
@@ -16,13 +15,6 @@ export const Navbar = () => {
       <div>
         {user ? (
           <div className="flex gap-3 ">
-            {isStudent && (
-              <NavigateLink to='/pending-outpasses' className="text-gray-200 hover:text-white mx-4">
-                <ActionButton className="text-black bg-white font-bold">
-                  Pending Outpasses
-                </ActionButton>
-              </NavigateLink>
-            )}
             <ProfileButton className="bg-white" />
             <LogoutButton className="bg-white" />
             {/* Conditional rendering for Pending Outpasses tab */}

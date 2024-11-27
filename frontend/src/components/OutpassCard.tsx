@@ -15,7 +15,7 @@ export const OutpassCard = ({ rowData }: { rowData: FormatOutpassTable }) => {
             <div className="grid grid-cols-2 gap-4">
                 <p className="font-bold">Enrollment No: <span className="font-normal font-mono">{rowData.id}</span></p>
                 <p className="font-bold">Name: <span className="font-normal font-mono"> {rowData.name} </span></p>
-                <p className="font-bold">Block/Building: <span className="font-normal font-mono"> {rowData.block} </span></p>
+                <p className="font-bold">Block/Building: <span className="font-normal font-mono"> {rowData.block_or_building} </span></p>
                 <p className="font-bold">Room No: <span className="font-normal font-mono"> {rowData.roomNumber} </span></p>
                 <p className="font-bold">Contact No: <span className="font-normal font-mono"> {rowData.contactNumber} </span></p>
                 <p className="font-bold">Parent's Number: <span className="font-normal font-mono"> {rowData.guardianContactNo} </span></p>

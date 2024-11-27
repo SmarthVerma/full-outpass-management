@@ -24,6 +24,7 @@ const leavePeriod = Math.round(dayDifferenceInMilliseconds / (1000 * 60 * 60 * 2
 console.log('dayDifference', leavePeriod)
     console.log("Checker", item)
     return {
+      outpassId: item.id,
       id: item.User.id as string,
       name: item.name as string,
       email: item.User.email as string,
@@ -36,14 +37,15 @@ console.log('dayDifference', leavePeriod)
       reason: item.reason,
       guardianContactNo: item.User.guardianContactNo,
       hostelName: item.hostelName,
-      block: item.block,
-      roomNumber: item.hostelNumber,
+      block: item.block_or_building,
+      roomNumber: item.roomNo,
       isOtpVerified: item.otpVerified
     };
   });
 };
 
 export interface FormatOutpassTable {
+  outpassId: string
   id: string;
   name: string;
   email: string;
@@ -55,7 +57,7 @@ export interface FormatOutpassTable {
   dateFrom: string;
   reason?: string;
   guardianContactNo: string;
-  hostelName?: string;
-  block?: string
+  roomNo?: number;
+  block_or_building?: string
   roomNumber: string,
 }

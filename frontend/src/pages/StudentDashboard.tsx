@@ -26,37 +26,43 @@ export const StudentDashboard = () => {
       name: "",
       dateFrom: new Date().toISOString().split("T")[0], // Set default to today's date
       dateTo: "",
-      hostelNumber: "",
       contactNumber: "",
       reason: "",
-      block: "A",
+      block_or_building: "A",
     },
   });
 
   const [createOutpass, { loading }] = useMutation(CREATE_OUTPASS);
   const userId = useAppSelector((state) => state.authUser.user?.id);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false); // State for OTP modal
+  const [outpassId, setOutpassId] = useState("")
 
   const onSubmit = async (data: z.infer<typeof createOutpassSchema>) => {
     try {
       const dateFrom = new Date(data.dateFrom).toISOString();
       const dateTo = new Date(data.dateTo).toISOString();
+      const roomNo = Number(data.roomNo)
+      console.log('this is the type', typeof (roomNo))
 
-      await createOutpass({
+      console.log({ data, dateFrom })
+      const response = await createOutpass({
         variables: {
           input: {
             name: data.name,
             dateFrom,
             dateTo,
-            hostelNumber: data.hostelNumber,
+            roomNo,
             contactNumber: data.contactNumber,
             reason: data.reason,
-            block: data.block,
+            block_or_building: data.block_or_building,
             userId: userId,
             hostelName,
           },
         },
       });
+
+      console.log('this is data', response.data.createOutpass.id)
+      setOutpassId(response.data.createOutpass.id)
 
       toast({
         title: "Outpass request submitted successfully!",
@@ -65,6 +71,8 @@ export const StudentDashboard = () => {
         variant: "default",
       });
 
+      // reset the form
+      form.reset()
       // Open OTP modal after successful submission
       setIsOtpModalOpen(true);
     } catch (error: any) {
@@ -140,12 +148,12 @@ export const StudentDashboard = () => {
           {/* Hostel Number */}
           <FormField
             control={form.control}
-            name="hostelNumber"
+            name="roomNo"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Hostel Number</FormLabel>
+                <FormLabel>Room Number</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter your hostel number" />
+                  <Input {...field} type="number" placeholder="Enter your Room number" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -185,16 +193,16 @@ export const StudentDashboard = () => {
           {/* Block */}
           <FormField
             control={form.control}
-            name="block"
+            name="block_or_building"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Block</FormLabel>
+                <FormLabel>Block/Building</FormLabel>
                 <FormControl>
                   <select {...field} className="border border-gray-300 p-2 w-full rounded">
                     <option value="">Select Block</option>
-                    {["A", "B", "C", "D"].map((block) => (
+                    {["A", "B", "C", "D", "H1", "H2", "H3", "H4", "H5", "H6"].map((block) => (
                       <option key={block} value={block}>
-                        Block {block}
+                        {block}
                       </option>
                     ))}
                   </select>
@@ -221,7 +229,7 @@ export const StudentDashboard = () => {
       </Form>
 
       {/* OTP Modal */}
-      <OtpModal setIsOtpModalOpen={setIsOtpModalOpen} isOtpModalOpen={isOtpModalOpen} />
+      <OtpModal setIsOtpModalOpen={setIsOtpModalOpen} outpassId={outpassId} isOtpModalOpen={isOtpModalOpen} />
     </div>
   );
 };

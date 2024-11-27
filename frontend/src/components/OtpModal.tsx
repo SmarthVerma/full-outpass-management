@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -8,20 +8,35 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { OTP_VERIFY } from "@/graphql/mutations/outpass.mutation";
+import { useMutation } from "@apollo/client";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
-interface params {
-    isOtpModalOpen: boolean,
-    setIsOtpModalOpen: (value: boolean) => void
+interface Params {
+    isOtpModalOpen: boolean;
+    setIsOtpModalOpen: (value: boolean) => void;
+    outpassId: string;
 }
 
-export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen }: params) => {
-
-    // Handle form submission
+export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen, outpassId }: Params) => {
     const [otp, setOtp] = useState(""); // State to handle OTP input
+    const { toast } = useToast()
+    const navigate = useNavigate()
 
-    const handleOtpSubmit = () => {
+    const [verify, { loading, error }] = useMutation(OTP_VERIFY);
+    console.log({ outpassId })
+    const handleOtpSubmit = useCallback(() => {
+        verify({
+            variables: {
+                input: { id: outpassId, code: otp },
+            },
+        });
 
-    }
+        toast({ title: "Otp verified successfully", variant: "default" })
+        setIsOtpModalOpen(false)
+        navigate('/')
+    }, [verify, outpassId, otp]);
 
     return (
         <Dialog open={isOtpModalOpen} onOpenChange={setIsOtpModalOpen}>
@@ -37,12 +52,21 @@ export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen }: params) => {
                         className="w-full"
                     />
                 </div>
+                {error && (
+                    <div className="text-red-500 text-sm mt-2">
+                        <p>Error: {error.message}</p>
+                    </div>
+                )}
                 <DialogFooter>
-                    <Button onClick={handleOtpSubmit} className="w-full">
-                        Submit OTP
+                    <Button
+                        onClick={handleOtpSubmit}
+                        className="w-full"
+                        disabled={loading}
+                    >
+                        {loading ? "Submitting..." : "Submit OTP"}
                     </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
     );
-}
+};

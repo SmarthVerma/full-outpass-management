@@ -1,7 +1,7 @@
 // App.js or App.tsx
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Home, Login, NotFound, NotVerifiedAccount, Signup, StudentDashboard } from "@/pages";
+import { AuthorizeYourAccount, Home, Login, NotFound, NotVerifiedAccount, Signup, StudentDashboard } from "@/pages";
 import { useQuery } from '@apollo/client';
 import { GET_AUTHENTICATED_USER } from './graphql/queries/user.query';
 import { useDispatch } from 'react-redux';
@@ -36,10 +36,11 @@ function AppRoutes() {
                     <Route path="/signup" element={auth ? <Navigate to={'/'} /> : <Signup />} />
                     <Route path="*" element={<NotFound />} />
                     <Route path='/dashboard/:hostel' element={auth ? student ? <StudentDashboard /> : <FacultyDashboard /> : <Navigate to={'/login'} />} />
-                    <Route path='/test' element={<OutpassCard />} />
                     <Route path='/verify/:token' element={<VerificationPage />} />
-                    <Route path='/verify-your-acount' element={<NotVerifiedAccount />} />
-                    <Route path='/pending-outpasses' element={ auth && student? <NotVerifiedAccount /> : <Navigate to={'/'} />} />
+                    <Route path='/verify-your-account' element={<NotVerifiedAccount />} />
+                    <Route path='/wait-for-admin' element={<AuthorizeYourAccount />} />
+
+                    {/* <Route path='/pending-outpasses' element={ auth && student? <NotVerifiedAccount /> : <Navigate to={'/'} />} /> */}
                 </Routes>
             </BackgroundGrid>
         </Router>

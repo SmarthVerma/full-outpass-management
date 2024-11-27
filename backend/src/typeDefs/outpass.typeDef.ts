@@ -4,6 +4,12 @@ enum Block {
   B
   C
   D
+  H1
+  H2
+  H3
+  H4
+  H5
+  H6
 }
 
 enum HostelInput {
@@ -21,7 +27,7 @@ enum HostelInput {
     roomNo: Int!
     contactNumber: String!
     reason: String!
-    block: Block!
+    block_or_building: Block!
     User: User  # FUCKING ALWAYS SAME NAME!!!!!!
     isCompleted: Boolean
     otpVerified: Boolean
@@ -36,7 +42,7 @@ enum HostelInput {
     roomNo: Int!
     contactNumber: String!
     reason: String!
-    block: Block!
+    block_or_building: Block!
     userId: String!  # Optional, to link to an existing user
     hostelName: HostelInput!
   }
@@ -45,6 +51,7 @@ enum HostelInput {
   type Query {
     getAllOutpasses(hostelName: HostelInput): [Outpass!]!
     getOutpass(id: ID!): Outpass
+
   }
 input UpdateOutpassInput {
   name: String
@@ -53,14 +60,21 @@ input UpdateOutpassInput {
   roomNo: Int
   contactNumber: String
   reason: String
-  block: Block
+  block_or_building: Block
   userId: String
+}
+
+input VerifyOtpInput {
+  id: String
+  code: String
 }
 
   # Mutations to Create, Update, or Delete an Outpass
   type Mutation {
+    verifyOutpass(id: String!): Outpass
     createOutpass(input: OutpassInput!): Outpass
     updateOutpass(id: ID!, input: UpdateOutpassInput!): Outpass
     deleteOutpass(id: ID!): Outpass
+    verifyOtp(input: VerifyOtpInput!): Outpass
   }
 `

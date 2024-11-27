@@ -10,10 +10,10 @@ export const CREATE_OUTPASS = gql`
       name
       dateFrom
       dateTo
-      hostelNumber
+      roomNo
       contactNumber
       reason
-      block
+      block_or_building
      
     }
   }
@@ -27,10 +27,10 @@ export const UPDATE_OUTPASS = gql`
       name
       dateFrom
       dateTo
-      hostelNumber
+      roomNo
       contactNumber
       reason
-      block
+      block_or_building
       user {
         id
         username
@@ -49,6 +49,19 @@ export const DELETE_OUTPASS = gql`
   }
 `;
 
+export const OTP_VERIFY = gql`
+mutation VerifyOtp($input: VerifyOtpInput!) {
+  verifyOtp(input: $input) {
+    otpVerified
+  }
+}`
+
+export const ACCEPTING_OUTPASS = gql`
+mutation Mutation($verifyOutpassId: String!) {
+  verifyOutpass(id: $verifyOutpassId) {
+    isCompleted
+  }
+}`
 
 // types
 
@@ -64,10 +77,10 @@ export interface Outpass {
   name: string;
   dateFrom: string; // You can use Date type if it's always a date
   dateTo: string;   // Same as above
-  hostelNumber: string;
+  roomNo: string;
   contactNumber: string;
   reason: string;
-  block: Block;
+  block_or_building: Block;
   isCompleted: boolean
   User: User; // Reference to the User model
   createdAt: Date

@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client";
 import { SIGNUP_USER } from "@/graphql/mutations/user.mutation";
 import { useToast } from "@/hooks/use-toast";
 import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
-import { STUDENT_NOT_VERIFIED, USER_FACULTY } from "@/assets/constant";
+import { STUDENT_NOT_VERIFIED, USER_FACULTY, USER_STUDENT } from "@/assets/constant";
 
 export const Signup = () => {
     const { toast } = useToast()
@@ -44,10 +44,15 @@ export const Signup = () => {
                 }
             })
             toast({ title: "Successfully registered", variant: 'default' })
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            if (error.message == STUDENT_NOT_VERIFIED) {
-                navigate("/verify-your-acount")
+            const userType = form.watch('userType')
+            console.log('this is user', userType)
+            if (error.message === STUDENT_NOT_VERIFIED) {
+                if (userType == USER_STUDENT) {
+                    navigate("/verify-your-account");
+                } else {
+                    navigate("/wait-for-admin");
+                }
             }
             form.reset()
             toast({ title: `${error.message}`, variant: "destructive" })

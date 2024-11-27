@@ -93,7 +93,7 @@ export interface OutpassInput {
   roomNo: number;
   contactNumber: string;
   reason: string;
-  block: Block;
+  block_or_building: Block;
   userId?: string;  // Optional field to link to an existing user
   hostelName: HostelNames
   otpVerified: boolean
@@ -124,4 +124,9 @@ export interface SendEmailInput {
   sendTo: string;
   sendFrom: string;
   message: string;
+}
+
+export interface VerifyOtpInput {
+  id: string,
+  code: string
 }

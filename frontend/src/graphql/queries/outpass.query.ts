@@ -4,13 +4,14 @@ import { gql } from "@apollo/client";
 export const GET_ALL_OUTPASSES = gql`
   query getAllOutpasses($hostelName: HostelInput!) {
     getAllOutpasses(hostelName: $hostelName) {
+      id
       name
       dateFrom
       dateTo
-      hostelNumber
+      roomNo
       contactNumber
       reason
-      block
+      block_or_building
       createdAt
       otpVerified
       User {
