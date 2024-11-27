@@ -32,7 +32,14 @@ export const FullOutpassModel = ({
     console.log('row', rowData.outpassId)
     const handleAccept = async () => {
         try {
-            await accept({ variables: { verifyOutpassId: rowData.outpassId } });
+            await accept({
+                variables: {
+                    input: {
+                        id: rowData.outpassId, 
+                        emailTo: rowData.email
+                    }
+                }
+            });
             // Optionally add success logic (like a success message or additional redirects)
             setIsRowModalOpen(false);
             alert('Outpass is accepted ✅')

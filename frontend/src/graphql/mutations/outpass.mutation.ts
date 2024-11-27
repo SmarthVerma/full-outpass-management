@@ -57,11 +57,13 @@ mutation VerifyOtp($input: VerifyOtpInput!) {
 }`
 
 export const ACCEPTING_OUTPASS = gql`
-mutation Mutation($verifyOutpassId: String!) {
-  verifyOutpass(id: $verifyOutpassId) {
+mutation Mutation($input: VerifyOutpassInput!) {
+  verifyOutpass(input: $input) {
     isCompleted
+    id
   }
-}`
+}
+`
 
 // types
 

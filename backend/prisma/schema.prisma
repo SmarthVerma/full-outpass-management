@@ -43,7 +43,7 @@ model User {
   outpasses         Outpass[]
   verifyCode        String?   @unique
   verifyCodeExpiry  DateTime?
-  guardianContactNo String?   @default("7018836872") // for otp implementation
+  guardianContactNo String?   @default("8629021667") // for otp implementation
 }
 
 enum HostelName {
