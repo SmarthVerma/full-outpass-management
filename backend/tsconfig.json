@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                          // Use the latest ECMAScript version (e.g., ES2020, ESNext)
+    "module": "ESNext",                          // Use ES module syntax (import/export)
+    "moduleResolution": "Node",                   // Use Node-style module resolution
+    "lib": ["ESNext", "DOM"],                     // Include the latest ECMAScript and DOM libraries
+    "esModuleInterop": true,                      // Enable compatibility with CommonJS modules
+    "skipLibCheck": true,                         // Skip type checking of declaration files (speeds up compilation)
+    "strict": true,                               // Enable strict type-checking options
+    "forceConsistentCasingInFileNames": true,     // Enforce consistent file naming across different systems
+    "noImplicitAny": true,                        // Raise an error on any expressions with an implicit 'any' type
+    "resolveJsonModule": true,                    // Allow importing JSON files as modules
+    "isolatedModules": true,                      // Ensure each file can be transpiled independently
+    "outDir": "./dist",                           // Output directory for compiled JavaScript files
+    "rootDir": "./src",                           // Root directory for TypeScript files
+    "allowJs": false,                             // Only compile TypeScript files, no JavaScript files
+    "skipDefaultLibCheck": true,                  // Skip checking of default library declaration files for performance
+    "declaration": true,                          // Generate .d.ts declaration files for TypeScript
+    "declarationDir": "./dist/types",             // Output directory for declaration files
+    "sourceMap": true,                            // Generate source maps for debugging
+    "incremental": true,                          // Enable incremental compilation for faster builds
+    "baseUrl": ".",                               // Base directory for resolving non-relative module imports
+    "paths": {                                    // Path mappings to alias module imports
+      "@/*": ["src/*"]
+    },
+    "jsx": "react", 
+  },
+  "include": [
+    "src/**/*.ts",                                // Include all TypeScript files in the src folder
+    "src/**/*.tsx"                                // Include all TypeScript React files (if using React)
+  ],
+  "exclude": [
+    "node_modules",                              // Exclude node_modules folder
+    "dist"                                       // Exclude dist folder (output)
+  ]
+}

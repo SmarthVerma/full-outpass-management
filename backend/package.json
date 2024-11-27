@@ -1,0 +1,53 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "codegen": "graphql-codegen --watch",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^4.11.2",
+    "@prisma/client": "^5.22.0",
+    "@react-email/components": "0.0.28",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "graphql": "^16.9.0",
+    "graphql-passport": "^0.6.8",
+    "jsonwebtoken": "^9.0.2",
+    "passport-local": "^1.0.0",
+    "pg": "^8.13.1",
+    "react-email": "^3.0.2",
+    "resend": "^4.0.1-alpha.0",
+    "twilio": "^5.3.6"
+  },
+  "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.11.0",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/client-preset": "^4.5.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/connect-pg-simple": "^7.0.3",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/graphql": "^14.2.3",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.9.0",
+    "@types/pg": "^8.11.10",
+    "@types/react": "^18.3.12",
+    "dotenv": "^16.4.5",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum BLOCK_OR_BUILDING {
+  A
+  B
+  C
+  D
+  H1
+  H2
+  H3
+  H4
+  H5
+  H6
+}
+
+model User {
+  id                String    @id
+  name              String?
+  isStudent         Boolean?  @default(false)
+  email             String    @unique
+  validEmail        Boolean?  @default(false)
+  password          String
+  gender            Gender
+  createdAt         DateTime  @default(now())
+  outpasses         Outpass[]
+  verifyCode        String?   @unique
+  verifyCodeExpiry  DateTime?
+  guardianContactNo String?   @default("7018836872") // for otp implementation
+}
+
+enum HostelName {
+  AZAD_HOSTEL     @map("azad-hostel")
+  PARMAR_HOSTEL   @map("parmar-hostel")
+  SHASHTRI_HOSTEL @map("shashtri-hostel")
+  GEETA_BHAWAN    @map("geeta-bhawan")
+}
+
+model Outpass {
+  id                String            @id @default(uuid())
+  name              String
+  dateFrom          DateTime
+  dateTo            DateTime
+  hostelName        HostelName
+  roomNo            Int
+  contactNumber     String
+  reason            String            @db.VarChar(255)
+  block_or_building BLOCK_OR_BUILDING
+  User              User?             @relation(fields: [userId], references: [id])
+  userId            String?
+  isCompleted       Boolean?          @default(false)
+  createdAt         DateTime          @default(now())
+  otpVerified       Boolean?          @default(false)
+  otp               String?
+}
+
+model Session {
+  id        Int       @id @default(autoincrement()) // Unique session ID
+  sid       String    @unique // Session ID (from Passport.js)
+  sess      Json // Serialized session data (user information, etc.)
+  expire    DateTime // Expiration time for session
+  createdAt DateTime  @default(now()) // Creation time
+  updatedAt DateTime? @updatedAt // Last update time
+}
