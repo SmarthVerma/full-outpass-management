@@ -130,3 +130,8 @@ export interface VerifyOtpInput {
   id: string,
   code: string
 }
+
+export interface VerifyOutpassInput {
+  id: string,
+  emailTo: string
+}

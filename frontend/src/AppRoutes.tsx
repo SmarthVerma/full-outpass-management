@@ -10,7 +10,6 @@ import { GetAuthenticatedUserResponse } from './types and schemas/getAuthenticat
 import { BackgroundGrid, Loading, Navbar } from './components';
 import { FacultyDashboard } from "@/pages/FacultyDashboard";
 import VerificationPage from './pages/VerificationPage';
-import { OutpassCard } from './components/OutpassCard';
 
 function AppRoutes() {
     const dispatch = useDispatch()

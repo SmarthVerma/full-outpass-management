@@ -1,6 +1,5 @@
 import formatDateTime from '@/lib/formatDateTime';
 import { FormatOutpassTable } from '@/lib/formatOutpassForTable';
-import React from 'react';
 
 export const OutpassCard = ({ rowData }: { rowData: FormatOutpassTable }) => {
     return (

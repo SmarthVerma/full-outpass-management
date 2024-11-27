@@ -69,9 +69,13 @@ input VerifyOtpInput {
   code: String
 }
 
+input VerifyOutpassInput {
+  id: String,
+  emailTo: String
+}
   # Mutations to Create, Update, or Delete an Outpass
   type Mutation {
-    verifyOutpass(id: String!): Outpass
+    verifyOutpass(input: VerifyOutpassInput!): Outpass
     createOutpass(input: OutpassInput!): Outpass
     updateOutpass(id: ID!, input: UpdateOutpassInput!): Outpass
     deleteOutpass(id: ID!): Outpass

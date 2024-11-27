@@ -36,7 +36,7 @@ export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen, outpassId }: Param
         toast({ title: "Otp verified successfully", variant: "default" })
         setIsOtpModalOpen(false)
         navigate('/')
-    }, [verify, outpassId, otp]);
+    }, [verify, outpassId, otp, toast, setIsOtpModalOpen, navigate]);
 
     return (
         <Dialog open={isOtpModalOpen} onOpenChange={setIsOtpModalOpen}>

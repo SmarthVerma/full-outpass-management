@@ -1,9 +1,10 @@
 import { sendOtpVerification } from "../helpers/sendOtpVerification.js";
 import { dbConnect } from "../db/dbConnect.js";
-import { HostelInput, OutpassInput, UpdateOutpassInput, VerifyOtpInput, } from "@/types/Inputs";
+import { HostelInput, OutpassInput, UpdateOutpassInput, VerifyOtpInput, VerifyOutpassInput, } from "@/types/Inputs";
 import { Context } from "@/types/PassportContext";
 import { PrismaClient } from "@prisma/client";
 import { GraphQLError } from "graphql";
+import { sendAccpetedEmail } from "../helpers/sendAcceptedEmail.js";
 
 const outpassResolvers = {
   Query: {
@@ -176,14 +177,14 @@ const allOutpasses = await prisma.outpass.findMany({
 
     verifyOutpass: async (
       parent: any,
-      { id }: { id: string },
+      { input }: { input: VerifyOutpassInput },
       context: Context
     ) => {
       try {
         const prisma: PrismaClient = await dbConnect();
         // Ensure the user is authenticated
         if (!context.isAuthenticated()) throw new GraphQLError("Unauthorized access");
-
+        const {id, emailTo} = input
         // Find the outpass by its ID
         const outpass = await prisma.outpass.findUnique({
           where: { id },
@@ -200,6 +201,7 @@ const allOutpasses = await prisma.outpass.findMany({
           data: { isCompleted: true },
         });
 
+        await sendAccpetedEmail(emailTo)
         return updatedOutpass;
       } catch (error: any) {
         console.error(error);
