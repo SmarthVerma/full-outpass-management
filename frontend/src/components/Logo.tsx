@@ -9,13 +9,13 @@ export const Logo = ({
 }: ComponentProps<'h1'>) => (
   <h1
     className={twMerge(
-      "text-2xl font-bold text-white cursor-pointer select-none",
+      "text-3xl font-Jaro font-bold text-white cursor-pointer select-none",
       className
     )}
     {...props}
   >
     <Link to='/'>
-    {children || "Hostel Management - Outpass"}
+      {children || "Hostel Management - Outpass"}
     </Link>
   </h1>
 );

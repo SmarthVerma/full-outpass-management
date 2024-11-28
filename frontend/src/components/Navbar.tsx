@@ -10,7 +10,7 @@ export const Navbar = () => {
   const isLoginPath = location.pathname === '/login';
 
   return (
-    <nav className="bg-gradient-to-r from-blue-600 to-blue-800 p-4 flex justify-between items-center shadow-lg font-mono">
+    <nav className="bg-gradient-to-r absolute left-0 z-20 right-0 from-blue-600 to-blue-800 p-4 flex justify-between items-center shadow-lg font-mono">
       <Logo />
       <div>
         {user ? (

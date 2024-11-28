@@ -27,8 +27,8 @@ export const FacultyDashboard = () => {
   if (loading) return <h1>loader</h1> // temperary
 
   return (
-    <div className="min-h-screen bg-transparent p-6">
-      <div className="max-w-6xl mx-auto border border-blue-400/20 bg-white shadow-md rounded-lg p-8">
+    <div className="min-h-screen flex justify-center items-center w-full bg-transparent p-6">
+      <div className=" mx-auto w-full max-w-7xl border border-blue-400/20 bg-white shadow-md rounded-lg p-8">
         <h2 className="text-3xl font-bold text-center text-blue-800 mb-6">Faculty Dashboard</h2>
 
         {/* Pending Outpasses Section */}

@@ -12,6 +12,7 @@ import { OTP_VERIFY } from "@/graphql/mutations/outpass.mutation";
 import { useMutation } from "@apollo/client";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/redux/hooks";
 
 interface Params {
     isOtpModalOpen: boolean;
@@ -22,6 +23,7 @@ interface Params {
 export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen, outpassId }: Params) => {
     const [otp, setOtp] = useState(""); // State to handle OTP input
     const { toast } = useToast()
+    const sentTo = useAppSelector(state => state.authUser.user)?.guardianContactNo
     const navigate = useNavigate()
 
     const [verify, { loading, error }] = useMutation(OTP_VERIFY);
@@ -43,6 +45,7 @@ export const OtpModal = ({ isOtpModalOpen, setIsOtpModalOpen, outpassId }: Param
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Enter OTP</DialogTitle>
+                   Sent to number: 91+{sentTo}
                 </DialogHeader>
                 <div className="py-4">
                     <Input

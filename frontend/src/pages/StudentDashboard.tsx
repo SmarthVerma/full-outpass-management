@@ -109,7 +109,7 @@ export const StudentDashboard = () => {
               <FormItem>
                 <FormLabel>Student Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter your full name" />
+                  <Input {...field} className="text-gray-500 font-semibold" placeholder="Enter your full name" readOnly />
                 </FormControl>
                 <FormMessage />
               </FormItem>
