@@ -43,7 +43,7 @@ model User {
   outpasses         Outpass[]
   verifyCode        String?   @unique
   verifyCodeExpiry  DateTime?
-  firstTimeLogin    Boolean?  @default(false)
+  firstTimeLogin    Boolean?  @default(true)
   guardianContactNo String?   @default("8629021667") // for otp implementation
 }
 

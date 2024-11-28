@@ -164,7 +164,9 @@ const userResolver = {
         
         const {newName} = input
         // Ensure user is authenticated
-        const userId = context.user?.id;
+        const userId = context.getUser()?.id;
+        
+
         if (!userId) {
           throw new GraphQLError("Unauthorized");
         }
@@ -172,7 +174,9 @@ const userResolver = {
         // Update username
         const updatedUser = await prisma.user.update({
           where: { id: userId },
-          data: { name: newName },
+          data: { name: newName.toUpperCase().trim(),
+            firstTimeLogin: false
+           },
         });
 
         return updatedUser;
