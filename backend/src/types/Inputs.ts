@@ -60,6 +60,7 @@ export interface User {
   gender: Gender;
   createdAt: string; // Consider using Date type if working with dates
   guardianContactNo: string
+  firstTimeLogin:boolean
 }
 
 export interface Outpass {

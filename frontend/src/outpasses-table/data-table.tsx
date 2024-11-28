@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import React, { useState } from "react"
-import { FullOutpassModel } from "@/components/FullOutpassModel"
+import { FullOutpassModel } from "@/components/FullOutpassModal"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

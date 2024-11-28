@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { PrismaClient, User } from "@prisma/client";
 import { FACULTY_NOT_VERIFIED, STUDENT_NOT_VERIFIED } from "../constants.js";
 import { sendVerificationEmail } from "../helpers/sendVerificationEmail.js";
-import { createVerificationToken } from "@/helpers/createVerificationToken.js";
+import { createVerificationToken } from "../helpers/createVerificationToken.js";
 
 export const configurePassport = async () => {
     const prisma: PrismaClient = await dbConnect();

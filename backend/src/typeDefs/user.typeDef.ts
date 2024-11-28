@@ -17,6 +17,7 @@ enum Gender {
     createdAt: String  # Using DateTime instead of Date
     guardianContactNo: String
     otp: String
+    firstTimeLogin: Boolean
   }
 
   # Query Definitions

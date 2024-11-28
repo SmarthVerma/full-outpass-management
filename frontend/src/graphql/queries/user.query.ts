@@ -11,6 +11,8 @@ export const GET_AUTHENTICATED_USER = gql`
       isStudent
       validEmail
       createdAt
+      guardianContactNo
+      firstTimeLogin
     }
   }
 `;

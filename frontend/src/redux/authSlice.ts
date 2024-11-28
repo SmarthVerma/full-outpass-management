@@ -1,17 +1,8 @@
+import { User } from '@/graphql/mutations/user.mutation';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Gender = 'MALE' | 'FEMALE';
 
-export interface User {
-    id: string;         // Assuming ID is a string type
-    name: string;
-    password: string;
-    isStudent?: boolean;
-    validEmail?: boolean;
-    email: string;
-    gender?: Gender;    // Optional field with 'male', 'female', or 'other'
-    createdAt: string;  // Keeping as string to represent DateTime
-}
+
 
 interface AuthState {
     isAuthenticated: boolean;
