@@ -1,8 +1,6 @@
 import { resend } from "./resendConfig.js";
-import VerificationEmail from "../emails/VerificationEmail.js";
-import { EmailResponse } from "@/types/Inputs.js";
-import SendEmailTo from "../emails/SendEmailTo.js";
-import AcceptedOutpassMail from "@/emails/AccptedOutpassMail.js";
+import { EmailResponse } from "../types/Inputs.js";
+import AcceptedOutpassMail from "../emails/AccptedOutpassMail.js";
 
 export const sendAccpetedEmail = async (
     sendTo: string,
