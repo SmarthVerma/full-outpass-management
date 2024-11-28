@@ -46,7 +46,6 @@ export const ProfileModal = ({ isOpen, toggleModal }: Props) => {
                                     onClick={handleSaveName}
                                     size={20}
                                     className="text-green-600 cursor-pointer hover:text-green-800"
-                                    title="Save"
                                 />
                             </div>
                         ) : (
@@ -56,7 +55,6 @@ export const ProfileModal = ({ isOpen, toggleModal }: Props) => {
                                     onClick={() => setIsEditingName(true)}
                                     size={20}
                                     className="text-gray-500 cursor-pointer hover:text-gray-700"
-                                    title="Edit Name"
                                 />
                             </div>
                         )}

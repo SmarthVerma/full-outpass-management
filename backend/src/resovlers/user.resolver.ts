@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"; // For password hashing
 import { PrismaClient } from "@prisma/client";
 import { GraphQLError } from "graphql";
-import { EmailResponse, LoginInput, SendEmailInput, SignUpInput, VerifyTokenInput } from "@/types/Inputs";
+import { ChangeNameInput, EmailResponse, LoginInput, SendEmailInput, SignUpInput, VerifyTokenInput } from "@/types/Inputs";
 import { dbConnect } from "../db/dbConnect.js";
 import { Context } from "@/types/PassportContext";
 import { APOLLO_USER_NOT_FOUND_EMAIL, FACULTY_NOT_VERIFIED, STUDENT_NOT_VERIFIED, USER_FACULTY, USER_NOT_FOUND, USER_STUDENT } from "../constants.js";
@@ -90,59 +90,58 @@ const userResolver = {
         await context.login(newUser); // direct login
         return newUser;
       } catch (error) {
-        if(error = STUDENT_NOT_VERIFIED) throw new GraphQLError(STUDENT_NOT_VERIFIED)
+        if (error = STUDENT_NOT_VERIFIED) throw new GraphQLError(STUDENT_NOT_VERIFIED)
         throw new GraphQLError(`Internal server error: ${error}`);
       }
     },
-
     // Login mutation: Authenticate a user and return a token
-login: async (
-  _: any,
-  { input }: { input: LoginInput },
-  context: Context
-) => {
-  try {
-    const { email, password, userType } = input;
+    login: async (
+      _: any,
+      { input }: { input: LoginInput },
+      context: Context
+    ) => {
+      try {
+        const { email, password, userType } = input;
 
-    // Authenticate user using "graphql-local"
-    const { user } = await context.authenticate("graphql-local", {
-      email,
-      password,
-    });
+        // Authenticate user using "graphql-local"
+        const { user } = await context.authenticate("graphql-local", {
+          email,
+          password,
+        });
 
-    if (!user) {
-      throw new GraphQLError("Incorrect email or password");
-    }
+        if (!user) {
+          throw new GraphQLError("Incorrect email or password");
+        }
 
-    console.log("User in login resolver:", user);
+        console.log("User in login resolver:", user);
 
-    // Validate user properties
-    if (!user.validEmail) {
-      throw new GraphQLError(`Verify your account first. Check your email: ${user.email}`);
-    }
+        // Validate user properties
+        if (!user.validEmail) {
+          throw new GraphQLError(`Verify your account first. Check your email: ${user.email}`);
+        }
 
-    if (userType === USER_FACULTY && user.isStudent) {
-      throw new GraphQLError("You are not authorized as a Faculty member");
-    }
+        if (userType === USER_FACULTY && user.isStudent) {
+          throw new GraphQLError("You are not authorized as a Faculty member");
+        }
 
-    if (!user.isStudent && !user.validEmail) {
-      throw new GraphQLError("Faculty not verified");
-    }
+        if (!user.isStudent && !user.validEmail) {
+          throw new GraphQLError("Faculty not verified");
+        }
 
-    // Log the user in
-    await context.login(user);
+        // Log the user in
+        await context.login(user);
 
-    return user;
-  } catch (error: any) {
-    console.error("Error in login resolver:", error);
+        return user;
+      } catch (error: any) {
+        console.error("Error in login resolver:", error);
 
-    if (error.message === APOLLO_USER_NOT_FOUND_EMAIL) {
-      throw new GraphQLError(USER_NOT_FOUND);
-    }
+        if (error.message === APOLLO_USER_NOT_FOUND_EMAIL) {
+          throw new GraphQLError(USER_NOT_FOUND);
+        }
 
-    throw new GraphQLError(error.message || "Internal server error");
-  }
-},
+        throw new GraphQLError(error.message || "Internal server error");
+      }
+    },
 
     logout: async (_: any, __: any, context: Context) => {
       try {
@@ -155,7 +154,32 @@ login: async (
       }
     },
 
+    changeName: async (
+      _: any,
+      { input }: { input: ChangeNameInput },
+      context: Context
+    ) => {
+      try {
+        const prisma: PrismaClient = await dbConnect();
+        
+        const {newName} = input
+        // Ensure user is authenticated
+        const userId = context.user?.id;
+        if (!userId) {
+          throw new GraphQLError("Unauthorized");
+        }
 
+        // Update username
+        const updatedUser = await prisma.user.update({
+          where: { id: userId },
+          data: { name: newName },
+        });
+
+        return updatedUser;
+      } catch (error: any) {
+        throw new GraphQLError(`Failed to update username: ${error.message}`);
+      }
+    },
     verifyUser: async (_: any, { verifyToken }: VerifyTokenInput, context: Context) => {
       try {
         console.log('in here verifyUser',)
@@ -231,24 +255,24 @@ login: async (
       }
     },
 
-    sendEmailTo: async(_:any, {input}:{ input :SendEmailInput}, context: Context) => {
-    try {
-        const {sendTo, sendFrom, message} = input
-        console.log({sendTo, sendFrom, message})
+    sendEmailTo: async (_: any, { input }: { input: SendEmailInput }, context: Context) => {
+      try {
+        const { sendTo, sendFrom, message } = input
+        console.log({ sendTo, sendFrom, message })
         const prisma = await dbConnect()
-          const user = await prisma.user.findUnique({
-            where: { email: sendTo },
-          });
-          if (!user) {
-            throw new GraphQLError("User not found you sending message to");
-          }
+        const user = await prisma.user.findUnique({
+          where: { email: sendTo },
+        });
+        if (!user) {
+          throw new GraphQLError("User not found you sending message to");
+        }
         const response = await sendEmailTo(sendTo, sendFrom, message)
-        console.log('response ',response)
+        console.log('response ', response)
         return response
-    } catch (error: any) {
-          console.error("Error in sendEmailTo", error);
+      } catch (error: any) {
+        console.error("Error in sendEmailTo", error);
         throw new GraphQLError(`Internal server error: ${error.message}`);
-    }
+      }
 
     },
   },

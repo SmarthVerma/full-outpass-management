@@ -136,3 +136,7 @@ export interface VerifyOutpassInput {
   id: string,
   emailTo: string
 }
+
+export interface ChangeNameInput {
+  newName: string
+}
