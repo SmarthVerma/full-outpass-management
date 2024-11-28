@@ -17,13 +17,14 @@ import { OtpModal } from "@/components/OtpModal";
 export const StudentDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const name = useAppSelector(state => state.authUser.user?.name)
 
   const { hostel } = useParams();
   const hostelName = formatHostel(hostel);
   const form = useForm<z.infer<typeof createOutpassSchema>>({
     resolver: zodResolver(createOutpassSchema),
     defaultValues: {
-      name: "",
+      name,
       dateFrom: new Date().toISOString().split("T")[0], // Set default to today's date
       dateTo: "",
       contactNumber: "",
@@ -108,7 +109,7 @@ export const StudentDashboard = () => {
               <FormItem>
                 <FormLabel>Student Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter your full name" />
+                  <Input {...field} className="text-gray-500 font-semibold" placeholder="Enter your full name" readOnly />
                 </FormControl>
                 <FormMessage />
               </FormItem>

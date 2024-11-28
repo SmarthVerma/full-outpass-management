@@ -13,7 +13,7 @@ import { GET_ALL_OUTPASSES } from "@/graphql/queries/outpass.query";
 interface Props {
     isRowModalOpen: boolean;
     setIsRowModalOpen: (value: boolean) => void;
-    rowData: FormatOutpassTable | null;
+    rowData: FormatOutpassTable ;
 }
 
 export const FullOutpassModel = ({

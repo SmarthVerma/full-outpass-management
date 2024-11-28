@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { storeAuthData } from './redux/authSlice';
 import { GetAuthenticatedUserResponse } from './types/getAuthenticatedUser.query';
 import { BackgroundGrid, Loading, Navbar } from './components';
+import { Test } from './components/Test';
+import Footer from './components/Footer';
 
 function AppRoutes() {
     const dispatch = useDispatch()
@@ -37,10 +39,11 @@ function AppRoutes() {
                     <Route path='/verify/:token' element={<VerificationPage />} />
                     <Route path='/verify-your-account' element={<NotVerifiedAccount />} />
                     <Route path='/wait-for-admin' element={<AuthorizeYourAccount />} />
-                    {/* <Route path='/test' element={} /> */}
+                    <Route path='/test' element={<Test />} />
 
                     {/* <Route path='/pending-outpasses' element={ auth && student? <NotVerifiedAccount /> : <Navigate to={'/'} />} /> */}
                 </Routes>
+                <Footer />
             </BackgroundGrid>
         </Router>
     );

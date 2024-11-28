@@ -61,7 +61,7 @@ export const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6 sm:p-12">
+        <div className="flex items-center justify-center min-h-screen p-6 sm:p-12">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}

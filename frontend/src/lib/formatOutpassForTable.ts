@@ -5,6 +5,7 @@ export const formatOutpassForTable = (
   outpasses: Outpass[] | undefined
 ): ColumnOutpass[] => {
     if(!outpasses) return []; 
+    console.log('this is outpasses', outpasses)
   return outpasses.map((item) => {
 
 const dateFrom = Number(item.dateFrom) // Convert to Date object

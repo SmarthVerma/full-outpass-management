@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input"
 
 import React, { useState } from "react"
 import { FullOutpassModel } from "@/components/FullOutpassModal"
+import { FormatOutpassTable } from "@/lib/formatOutpassForTable"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -41,7 +42,7 @@ export function DataTable<TData, TValue>({
     []
   )
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 8 }); // Set default page size
-  const [selectedRowData, setSelectedRowData] = useState<TData | null>(null);
+  const [selectedRowData, setSelectedRowData] = useState<FormatOutpassTable | TData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const table = useReactTable({

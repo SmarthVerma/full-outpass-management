@@ -3,9 +3,11 @@ import { twMerge } from "tailwind-merge";
 import { ActionButton, ActionButtonProps } from "./ActionButton";
 import { MdPerson } from "react-icons/md";
 import { ProfileModal } from "../ProfileModal";
+import { useAppSelector } from "@/redux/hooks";
 
 export const ProfileButton = ({ className, ...props }: ActionButtonProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const firstTimeLogin = useAppSelector(state => state.authUser.user?.firstTimeLogin ? true : false)
+  const [isOpen, setIsOpen] = useState(firstTimeLogin);
 
 
   const toggleModal = useCallback(() => {
@@ -17,7 +19,7 @@ export const ProfileButton = ({ className, ...props }: ActionButtonProps) => {
         <MdPerson size={24} />
         Profile
       </ActionButton>
-      <ProfileModal isOpen={isOpen} toggleModal={toggleModal} />
+      <ProfileModal firstTimeLogin={firstTimeLogin} isOpen={isOpen} toggleModal={toggleModal} />
     </>
 
 

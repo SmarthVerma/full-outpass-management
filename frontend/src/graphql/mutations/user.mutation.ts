@@ -40,6 +40,16 @@ export const LOGOUT_USER = gql`
   }
 `;
 
+
+export const CHANGE_NAME_ON_FIRST_LOGIN = gql`
+mutation ChangeName($input: ChangeNameInput!) {
+  changeName(input: $input) {
+    name
+    firstTimeLogin
+  }
+}
+`
+
 export const VERIFY_USER = gql`
   mutation VerifyUser($verifyToken: String!) {
     verifyUser(verifyToken: $verifyToken) {
@@ -56,6 +66,7 @@ mutation SendEmailTo($input: SendEmailInput!) {
   }
 }
 `
+
 
 export const RESEND_VERIFICATION = gql`
 mutation Mutation($email: String!) {

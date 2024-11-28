@@ -43,7 +43,7 @@ export const Login = () => {
   if (error?.message == FACULTY_NOT_VERIFIED) return <h1>${error.message}</h1>
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6 sm:p-12">
+    <div className="flex items-center justify-center min-h-screen bg-transparent p-6 sm:p-12">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
