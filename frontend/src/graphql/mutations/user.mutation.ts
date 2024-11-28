@@ -11,6 +11,7 @@ export const SIGNUP_USER = gql`
       isStudent
       validEmail
       createdAt
+      guardianContactNo
     }
   }
 `;
@@ -80,4 +81,5 @@ export interface User {
   gender?: Gender; // Optional field, corresponds to the "Gender" enum
   createdAt: string; // ISO 8601 date-time string
   guardianContactNo?: string // from dataBase
+  firstTimeLogin: boolean
 }

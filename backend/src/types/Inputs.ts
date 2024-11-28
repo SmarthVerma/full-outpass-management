@@ -60,6 +60,7 @@ export interface User {
   gender: Gender;
   createdAt: string; // Consider using Date type if working with dates
   guardianContactNo: string
+  firstTimeLogin:boolean
 }
 
 export interface Outpass {
@@ -134,4 +135,8 @@ export interface VerifyOtpInput {
 export interface VerifyOutpassInput {
   id: string,
   emailTo: string
+}
+
+export interface ChangeNameInput {
+  newName: string
 }

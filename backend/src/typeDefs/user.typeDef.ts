@@ -17,6 +17,7 @@ enum Gender {
     createdAt: String  # Using DateTime instead of Date
     guardianContactNo: String
     otp: String
+    firstTimeLogin: Boolean
   }
 
   # Query Definitions
@@ -32,11 +33,14 @@ enum Gender {
     logout: LogoutResponse
     verifyUser(verifyToken: String!) : User 
     resendVerificationCode(email: String!): EmailResponse!
-    
+      changeName(input: ChangeNameInput!): User!
+
     sendEmailTo(input: SendEmailInput!): EmailResponse
  
   }
-
+input ChangeNameInput {
+  newName: String!
+}
   type EmailResponse {
   sucess: Boolean!
   message: String!

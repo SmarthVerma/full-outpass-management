@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createOutpassSchema } from "@/types and schemas/createOutpassSchema";
+import { createOutpassSchema } from "@/schemas/createOutpassSchema";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@apollo/client";
 import { CREATE_OUTPASS } from "@/graphql/mutations/outpass.mutation";

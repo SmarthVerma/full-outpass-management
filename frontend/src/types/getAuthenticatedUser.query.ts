@@ -1,4 +1,4 @@
-import { User } from "../redux/authSlice";
+import { User } from "@/graphql/mutations/user.mutation";
 
 export interface GetAuthenticatedUserResponse {
     authUser: User | undefined ;

@@ -1,21 +1,20 @@
 // App.js or App.tsx
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthorizeYourAccount, Home, Login, NotFound, NotVerifiedAccount, Signup, StudentDashboard } from "@/pages";
+import { AuthorizeYourAccount, Home, Login, NotFound, NotVerifiedAccount, Signup, StudentDashboard, FacultyDashboard, VerificationPage } from "@/pages";
 import { useQuery } from '@apollo/client';
 import { GET_AUTHENTICATED_USER } from './graphql/queries/user.query';
 import { useDispatch } from 'react-redux';
 import { storeAuthData } from './redux/authSlice';
-import { GetAuthenticatedUserResponse } from './types and schemas/getAuthenticatedUser.query';
+import { GetAuthenticatedUserResponse } from './types/getAuthenticatedUser.query';
 import { BackgroundGrid, Loading, Navbar } from './components';
-import { FacultyDashboard } from "@/pages/FacultyDashboard";
-import VerificationPage from './pages/VerificationPage';
 
 function AppRoutes() {
     const dispatch = useDispatch()
     const { data, loading } = useQuery<GetAuthenticatedUserResponse>(GET_AUTHENTICATED_USER)
     const student = data?.authUser?.isStudent
     const auth = !!data?.authUser
+
 
 
     useEffect(() => {
@@ -38,6 +37,7 @@ function AppRoutes() {
                     <Route path='/verify/:token' element={<VerificationPage />} />
                     <Route path='/verify-your-account' element={<NotVerifiedAccount />} />
                     <Route path='/wait-for-admin' element={<AuthorizeYourAccount />} />
+                    {/* <Route path='/test' element={} /> */}
 
                     {/* <Route path='/pending-outpasses' element={ auth && student? <NotVerifiedAccount /> : <Navigate to={'/'} />} /> */}
                 </Routes>

@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-function VerificationPage() {
+export const VerificationPage = () => {
   const { token } = useParams();
   console.log('this is token', token)
   const navigate = useNavigate()
@@ -48,4 +48,3 @@ function VerificationPage() {
   );
 }
 
-export default VerificationPage;

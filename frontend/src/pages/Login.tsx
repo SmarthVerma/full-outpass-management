@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginSchema } from "@/types and schemas/loginSchema";
+import { loginSchema } from "@/schemas/loginSchema";
 import UserTypeSwitcher from "@/components/UserTypeSwitcher";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "@/graphql/mutations/user.mutation";
@@ -21,26 +21,26 @@ import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const {toast} = useToast()
+  const { toast } = useToast()
   // React Hook Form setup
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
   });
-  const [login, {loading, error}] = useMutation(LOGIN_USER, {refetchQueries: [GET_AUTHENTICATED_USER]})
+  const [login, { loading, error }] = useMutation(LOGIN_USER, { refetchQueries: [GET_AUTHENTICATED_USER] })
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     console.log('this is the data', data)
-   try {
-     await login({variables: {input: data}})
-     navigate('/')
-   } catch (error : any) {
-    console.error("Some error occured", error)
-    toast({title: `${error.message}`, variant: 'destructive'})
-   }
+    try {
+      await login({ variables: { input: data } })
+      navigate('/')
+    } catch (error: any) {
+      console.error("Some error occured", error)
+      toast({ title: `${error.message}`, variant: 'destructive' })
+    }
   };
 
-  if(error?.message == USER_NOT_FOUND) return <NotFound userType={form.watch('userType')} />
-  if(error?.message == FACULTY_NOT_VERIFIED) return <h1>${error.message}</h1>
+  if (error?.message == USER_NOT_FOUND) return <NotFound userType={form.watch('userType')} />
+  if (error?.message == FACULTY_NOT_VERIFIED) return <h1>${error.message}</h1>
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6 sm:p-12">
